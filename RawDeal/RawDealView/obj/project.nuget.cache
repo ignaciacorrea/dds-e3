@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7tM0tcwUfL4ZNfmqeEh7GLsQIN6eTYAPvP4YUcGWg1yQw9pIYwtzwfTa4KcBj58T5Meiie09K4kqQEKb5/T5JQ==",
+  "dgSpecHash": "0ridlLm0W8KKSen2vlzSW7CNzOTAEOMCq55eUCArmdIiRsR6gupmx2a00VqriR37S6I+VKx9DIyBrfiLQGAS3Q==",
   "success": true,
-  "projectFilePath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj",
+  "projectFilePath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj",
   "expectedPackageFiles": [
     "/Users/ignaciacorrea/.nuget/packages/microsoft.netcore.app.ref/6.0.21/microsoft.netcore.app.ref.6.0.21.nupkg.sha512",
     "/Users/ignaciacorrea/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.21/microsoft.aspnetcore.app.ref.6.0.21.nupkg.sha512"

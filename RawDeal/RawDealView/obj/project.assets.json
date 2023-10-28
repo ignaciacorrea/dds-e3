@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj",
+      "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj",
       "projectName": "RawDealView",
-      "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj",
+      "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj",
       "packagesPath": "/Users/ignaciacorrea/.nuget/packages/",
-      "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/obj/",
+      "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/ignaciacorrea/.nuget/NuGet/NuGet.Config"

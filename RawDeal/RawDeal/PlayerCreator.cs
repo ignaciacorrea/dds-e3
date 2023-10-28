@@ -69,12 +69,12 @@ public class PlayerCreator
 
     private Player CreatePlayer()
     {
-        // SuperstarAbility userSuperstarAbility = GetSuperstarAbility(_playerSuperstar.Name);
+        // SuperstarAbility userSuperstarAbility = DeterminateSuperstar(_playerSuperstar.Name);
         return new Player(_playerSuperstar, _playerDeck);
     }
 
     
-    // private SuperstarAbility GetSuperstarAbility(string superstarName)
+    // private SuperstarAbility DeterminateSuperstar(string superstarName)
     // {
     //     return superstarName switch
     //     {
@@ -82,8 +82,7 @@ public class PlayerCreator
     //         "THE UNDERTAKER" => new TheUndertakerAbility(_view),
     //         "STONE COLD STEVE AUSTIN" => new StoneColdSteveAustinAbility(_view),
     //         "THE ROCK" => new TheRockAbility(_view),
-    //         "HHH" => new HhhAbility(_view),
-    //         // "KANE" => new KaneAbility(_view),
+    //         "KANE" => new KaneAbility(_view),
     //         "MANKIND" => new MankindAbility(_view),
     //         _ => throw new ArgumentException("Superstar no reconocido: " + superstarName)
     //     };

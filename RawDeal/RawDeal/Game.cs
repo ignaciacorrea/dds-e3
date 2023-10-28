@@ -41,8 +41,7 @@ public class Game
         while(_gameIsOn)
         {
             ShowGameInfo();
-            NextPlay playerActionRequest = AskWhatToDo();
-            HandleOption(playerActionRequest);
+            PlayOneAction();
         }
     }
     
@@ -76,6 +75,14 @@ public class Game
         
         _currentPlayer.DrawCardFromArsenal();
         ActivateSuperstarsAbilities();
+    }
+
+
+    private void ShowGameInfo()
+    {
+        PlayerInfo currentPlayerInfo = new PlayerInfo(_currentPlayer.GetSuperstarName(), _currentPlayer.GetFortitudeRating(), CardDeckInfoProvider.GetDeckLength(_currentPlayer.GetHand()), CardDeckInfoProvider.GetDeckLength(_currentPlayer.GetArsenal()));
+        PlayerInfo otherPlayerInfo = new PlayerInfo(_otherPlayer.GetSuperstarName(), _otherPlayer.GetFortitudeRating(), CardDeckInfoProvider.GetDeckLength(_otherPlayer.GetHand()), CardDeckInfoProvider.GetDeckLength(_otherPlayer.GetArsenal()));
+        _view.ShowGameInfo(currentPlayerInfo, otherPlayerInfo);
     }
 
 
@@ -114,19 +121,11 @@ public class Game
     }
 
 
-    private void ShowGameInfo()
-    {
-        PlayerInfo currentPlayerInfo = new PlayerInfo(_currentPlayer.GetSuperstarName(), _currentPlayer.GetFortitudeRating(), CardDeckInfoProvider.GetDeckLength(_currentPlayer.GetHand()), CardDeckInfoProvider.GetDeckLength(_currentPlayer.GetArsenal()));
-        PlayerInfo otherPlayerInfo = new PlayerInfo(_otherPlayer.GetSuperstarName(), _otherPlayer.GetFortitudeRating(), CardDeckInfoProvider.GetDeckLength(_otherPlayer.GetHand()), CardDeckInfoProvider.GetDeckLength(_otherPlayer.GetArsenal()));
-        _view.ShowGameInfo(currentPlayerInfo, otherPlayerInfo);
-    }
-
-
-    private NextPlay AskWhatToDo()
+    private void PlayOneAction()
     {
         CheckSuperstarAbilityEnabled();
         NextPlay playerActionRequest = _currentPlayer.GetIfSuperstarAbilityIsEnable() ? _view.AskUserWhatToDoWhenUsingHisAbilityIsPossible() : _view.AskUserWhatToDoWhenHeCannotUseHisAbility();
-        return playerActionRequest;
+        HandleOption(playerActionRequest);
     }
 
 
@@ -138,116 +137,18 @@ public class Game
     }
 
 
-    private void HandleOption(NextPlay playerRequest)
+    private void HandleOption(NextPlay playerActionRequest)
     {
-        switch (playerRequest)
-        {
-            case NextPlay.ShowCards:
-                ShowCardsToUser();
-                break;
-            case NextPlay.PlayCard:
-                PlayCard();
-                break;
-            case NextPlay.UseAbility:
-                _currentPlayer.ManageIfSuperstarAbilityIsEnabled(false);
-                HandleSuperstarsAbilities();
-                break;
-            case NextPlay.EndTurn:
-                EndTurn();
-                break;
-            case NextPlay.GiveUp:
-                _view.CongratulateWinner(_otherPlayer.GetSuperstarName());
-                _gameIsOn = false;
-                break;
-        }
-    }
-
-
-    private void HandleSuperstarsAbilities()
-    {
-        _view.SayThatPlayerIsGoingToUseHisAbility(_currentPlayer.GetSuperstarName(), _currentPlayer.GetSuperstarAbility());
-        _currentPlayer.ManageIfSuperstarAbilityIsEnabled(false);
-        switch (_currentPlayer.GetSuperstarName())
-        {
-            case "CHRIS JERICHO":
-                HandleChrisJerichoAbility();
-                break;
-            case "THE UNDERTAKER":
-                HandleTheUndertakerAbility();
-                break;
-            case "STONE COLD STEVE AUSTIN":
-                HandleStoneColdSteveAustinAbility();
-                break;
-        }
-    }
-
-
-    private void HandleChrisJerichoAbility()
-    {
-        PromptPlayerToDiscardCardsToRingside(1);
-        SwapPlayers();
-        PromptPlayerToDiscardCardsToRingside(1);
-        SwapPlayers();
-    }
-
-
-    private void HandleStoneColdSteveAustinAbility()
-    {
-        _currentPlayer.DrawCardFromArsenal();
-        PromptPlayerToDiscardCardsToArsenal();
-    }
-
-
-    // numero 2 y 1
-    private void HandleTheUndertakerAbility()
-    {
-        PromptPlayerToDiscardCardsToRingside(2);
-        int indexSelectedCardTake = _view.AskPlayerToSelectCardsToPutInHisHand(_currentPlayer.GetSuperstarName(), 1, FormatUtility.FormatCardsToDisplay(_currentPlayer.GetRingside()));
-        _currentPlayer.RecoverCardToHandFromRingside(indexSelectedCardTake);
-    }
-    
-    
-    private void PromptPlayerToDiscardCardsToRingside(int totalCardsToDiscard)
-    {
-        for (int numberOfCardToDiscard = totalCardsToDiscard; numberOfCardToDiscard > 0; numberOfCardToDiscard--)
-        {
-            int indexSelectedCard = _view.AskPlayerToSelectACardToDiscard(FormatUtility.FormatCardsToDisplay(_currentPlayer.GetHand()), _currentPlayer.GetSuperstarName(), _currentPlayer.GetSuperstarName(), numberOfCardToDiscard);
-            _currentPlayer.DiscardCardToRingside(indexSelectedCard);
-        }
-    }
-    
-    
-    private void PromptPlayerToDiscardCardsToArsenal()
-    {
-        _view.SayThatPlayerDrawCards(_currentPlayer.GetSuperstarName(), 1);
-        int indexSelectedCard = _view.AskPlayerToReturnOneCardFromHisHandToHisArsenal(_currentPlayer.GetSuperstarName(), FormatUtility.FormatCardsToDisplay(_currentPlayer.GetHand()));
-        _currentPlayer.DiscardCardToArsenal(indexSelectedCard);
-    }
-    
-    
-    private void EndTurn()
-    {
-        if(CheckCountOutVictory()) return;
-        SwapPlayers();
-        if(CheckCountOutVictory()) return;
-        StartTurn();
-    }
-    
-
-    private bool CheckCountOutVictory()
-    {
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_currentPlayer.GetArsenal())) return false;
-        _view.CongratulateWinner(_otherPlayer.GetSuperstarName());
-        _gameIsOn = false;
-        return true;
-    }
-
-
-    private void SwapPlayers()
-    {
-        Player temporaryPlayer = _currentPlayer;
-        _currentPlayer = _otherPlayer;
-        _otherPlayer = temporaryPlayer;
+        if (playerActionRequest == NextPlay.ShowCards)
+            ShowCardsToUser();
+        else if (playerActionRequest == NextPlay.PlayCard)
+            PlayCard();
+        else if (playerActionRequest == NextPlay.UseAbility)
+            HandleSuperstarsAbilities();
+        else if (playerActionRequest == NextPlay.EndTurn)
+            EndTurn();
+        else if (playerActionRequest == NextPlay.GiveUp)
+            GiveUp();
     }
 
 
@@ -257,10 +158,10 @@ public class Game
         List<Card> cardsToDisplay = GetCardsForDeck(deckUserWantsToSee);
         _view.ShowCards(FormatUtility.FormatCardsToDisplay(cardsToDisplay));
     }
-    
-    
-    private List<Card> GetCardsForDeck(CardSet cardset) =>
-        cardset switch
+
+
+    private List<Card> GetCardsForDeck(CardSet cardSet) =>
+        cardSet switch
         {
             CardSet.Hand => _currentPlayer.GetHand(),
             CardSet.RingArea => _currentPlayer.GetRingArea(),
@@ -269,8 +170,8 @@ public class Game
             CardSet.OpponentsRingsidePile => _otherPlayer.GetRingside(),
             _ => new List<Card>()
         };
-
-
+    
+    
     // clean code!!!!!
     private void PlayCard()
     {
@@ -318,5 +219,100 @@ public class Game
         _view.CongratulateWinner(_currentPlayer.GetSuperstarName());
         _gameIsOn = false;
         return true;
+    }
+    
+    
+    private void HandleSuperstarsAbilities()
+    {
+        _view.SayThatPlayerIsGoingToUseHisAbility(_currentPlayer.GetSuperstarName(), _currentPlayer.GetSuperstarAbility());
+        _currentPlayer.ManageIfSuperstarAbilityIsEnabled(false);
+        switch (_currentPlayer.GetSuperstarName())
+        {
+            case "CHRIS JERICHO":
+                HandleChrisJerichoAbility();
+                break;
+            case "THE UNDERTAKER":
+                HandleTheUndertakerAbility();
+                break;
+            case "STONE COLD STEVE AUSTIN":
+                HandleStoneColdSteveAustinAbility();
+                break;
+        }
+    }
+
+
+    private void HandleChrisJerichoAbility()
+    {
+        PromptPlayerToDiscardCardsToRingside(1);
+        SwapPlayers();
+        PromptPlayerToDiscardCardsToRingside(1);
+        SwapPlayers();
+    }
+
+
+    // numero 2 y 1
+    private void HandleTheUndertakerAbility()
+    {
+        PromptPlayerToDiscardCardsToRingside(2);
+        int indexSelectedCardTake = _view.AskPlayerToSelectCardsToPutInHisHand(_currentPlayer.GetSuperstarName(), 1, FormatUtility.FormatCardsToDisplay(_currentPlayer.GetRingside()));
+        _currentPlayer.RecoverCardToHandFromRingside(indexSelectedCardTake);
+    }
+    
+    
+    private void HandleStoneColdSteveAustinAbility()
+    {
+        _currentPlayer.DrawCardFromArsenal();
+        PromptPlayerToDiscardCardsToArsenal();
+    }
+
+
+    private void PromptPlayerToDiscardCardsToRingside(int totalCardsToDiscard)
+    {
+        for (int numberOfCardToDiscard = totalCardsToDiscard; numberOfCardToDiscard > 0; numberOfCardToDiscard--)
+        {
+            int indexSelectedCard = _view.AskPlayerToSelectACardToDiscard(FormatUtility.FormatCardsToDisplay(_currentPlayer.GetHand()), _currentPlayer.GetSuperstarName(), _currentPlayer.GetSuperstarName(), numberOfCardToDiscard);
+            _currentPlayer.DiscardCardToRingside(indexSelectedCard);
+        }
+    }
+    
+    
+    private void PromptPlayerToDiscardCardsToArsenal()
+    {
+        _view.SayThatPlayerDrawCards(_currentPlayer.GetSuperstarName(), 1);
+        int indexSelectedCard = _view.AskPlayerToReturnOneCardFromHisHandToHisArsenal(_currentPlayer.GetSuperstarName(), FormatUtility.FormatCardsToDisplay(_currentPlayer.GetHand()));
+        _currentPlayer.DiscardCardToArsenal(indexSelectedCard);
+    }
+    
+    
+    private void EndTurn()
+    {
+        if(CheckCountOutVictory()) return;
+        SwapPlayers();
+        if(CheckCountOutVictory()) return;
+        StartTurn();
+    }
+    
+
+    private bool CheckCountOutVictory()
+    {
+        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_currentPlayer.GetArsenal())) return false;
+        _view.CongratulateWinner(_otherPlayer.GetSuperstarName());
+        _gameIsOn = false;
+        return true;
+    }
+
+
+    private void SwapPlayers()
+    {
+        Player temporaryPlayer = _currentPlayer;
+        _currentPlayer = _otherPlayer;
+        _otherPlayer = temporaryPlayer;
+    }
+
+
+    private void GiveUp()
+    {
+        _view.CongratulateWinner(_otherPlayer.GetSuperstarName());
+        _gameIsOn = false;
     }
 }

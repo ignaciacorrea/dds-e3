@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj": {}
+    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj": {}
   },
   "projects": {
-    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj": {
+    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj",
+        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj",
         "projectName": "RawDeal.Tests",
-        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj",
+        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests/RawDeal.Tests.csproj",
         "packagesPath": "/Users/ignaciacorrea/.nuget/packages/",
-        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests/obj/",
+        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ignaciacorrea/.nuget/NuGet/NuGet.Config"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj": {
-                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj"
+              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj": {
+                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj"
               },
-              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj": {
-                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj"
+              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj": {
+                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj"
               }
             }
           }
@@ -96,14 +96,14 @@
         }
       }
     },
-    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj": {
+    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj",
+        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj",
         "projectName": "RawDeal",
-        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj",
+        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj",
         "packagesPath": "/Users/ignaciacorrea/.nuget/packages/",
-        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/obj/",
+        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ignaciacorrea/.nuget/NuGet/NuGet.Config"
@@ -118,8 +118,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj": {
-                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj"
+              "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj": {
+                "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj"
               }
             }
           }
@@ -167,14 +167,14 @@
         }
       }
     },
-    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj": {
+    "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj",
+        "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj",
         "projectName": "RawDealView",
-        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj",
+        "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj",
         "packagesPath": "/Users/ignaciacorrea/.nuget/packages/",
-        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/obj/",
+        "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ignaciacorrea/.nuget/NuGet/NuGet.Config"

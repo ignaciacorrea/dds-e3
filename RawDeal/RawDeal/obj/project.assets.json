@@ -18,7 +18,7 @@
     "RawDealView/1.0.0": {
       "type": "project",
       "path": "../RawDealView/RawDealView.csproj",
-      "msbuildProject": "../../../../../../../../Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj"
+      "msbuildProject": "../../../../../../../../Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj",
+      "projectUniqueName": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj",
       "projectName": "RawDeal",
-      "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/RawDeal.csproj",
+      "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/RawDeal.csproj",
       "packagesPath": "/Users/ignaciacorrea/.nuget/packages/",
-      "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal/obj/",
+      "outputPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/ignaciacorrea/.nuget/NuGet/NuGet.Config"
@@ -51,8 +51,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj": {
-              "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDealView/RawDealView.csproj"
+            "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj": {
+              "projectPath": "/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDealView/RawDealView.csproj"
             }
           }
         }

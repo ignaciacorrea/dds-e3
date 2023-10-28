@@ -5,6 +5,6 @@
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/FiltersState/=SpellingFilter/@EntryIndexedValue">On</s:String>
 	<s:Boolean x:Key="/Default/Environment/InlayHints/GeneralInlayHintsOptions/EnableInlayHints/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bb28ea64_002Dc54a_002D441c_002Db781_002Dd79ea2dc5e8c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;RawDeal.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/E3/RawDeal/RawDeal.Tests" Presentation="&amp;lt;RawDeal.Tests&amp;gt;" /&gt;
+  &lt;Project Location="/Users/ignaciacorrea/Desktop/Años/2023/Segundo semestre/Diseño detallado de Software/Proyecto/dds-e3/RawDeal/RawDeal.Tests" Presentation="&amp;lt;RawDeal.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
