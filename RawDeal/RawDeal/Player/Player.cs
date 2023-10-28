@@ -25,4 +25,5 @@ public class Player
     public List<Card> GetArsenal() {return Arsenal.GetCards();}
     public List<Card> GetRingside() {return Ringside.GetCards();}
     public List<Card> GetRingArea() {return RingArea.GetCards();}
+    public int GetFortitudeRating() {return FortitudeRating;}
 }

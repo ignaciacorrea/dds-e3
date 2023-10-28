@@ -5,8 +5,8 @@ namespace RawDeal;
 public class TheRockAbility : SuperstarAbility
 {
     private readonly View _view;
-    private Player _player;
-    private PlayerController _playerController;
+    private readonly Player _player;
+    private const int AmountCardsRecover = 1;
     
     public TheRockAbility(View view, Player player)
     {
@@ -16,21 +16,24 @@ public class TheRockAbility : SuperstarAbility
     
     public override void ApplyBeforeDrawing(Player opponent)
     {
-        MakeControllers(opponent);
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetRingside()))
-            HandleTheRockAbility();
-    }
-    
-    private void HandleTheRockAbility()
-    {
+        if (!CheckIfAbilityCanBeUsed()) return;
         if (!_view.DoesPlayerWantToUseHisAbility(_player.GetSuperstarName())) return;
         _view.SayThatPlayerIsGoingToUseHisAbility(_player.GetSuperstarName(), _player.GetStringSuperstarAbility());
-        int indexSelectedCard = _view.AskPlayerToSelectCardsToRecover(_player.GetSuperstarName(), 1, FormatUtility.FormatCardsToDisplay(_player.GetRingside()));
-        _playerController.RecoverCardToArsenalFromRingside(indexSelectedCard);
+        HandleAbility(opponent);
     }
 
-    protected override void MakeControllers(Player opponent)
+    public override bool CheckIfAbilityCanBeUsed()
     {
-        _playerController = new PlayerController(_player, opponent, _view);
+        bool isRingsideEmpty = CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetRingside());
+        bool abilityCanBeUsed = !isRingsideEmpty;
+        return abilityCanBeUsed;
+    }
+    
+    private void HandleAbility(Player opponent)
+    {
+        List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(_player.GetRingside());
+        int indexSelectedCard = _view.AskPlayerToSelectCardsToRecover(_player.GetSuperstarName(), AmountCardsRecover, formattedCardsToDisplay);
+        PlayerController playerController = new PlayerController(_player, opponent, _view);
+        playerController.RecoverCardToArsenalFromRingside(indexSelectedCard);
     }
 }

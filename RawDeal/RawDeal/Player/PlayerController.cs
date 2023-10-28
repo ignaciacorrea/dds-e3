@@ -1,4 +1,6 @@
 using RawDealView;
+using RawDealView.Formatters;
+using RawDealView.Options;
 
 namespace RawDeal;
 
@@ -6,6 +8,7 @@ public class PlayerController
 {
     private Player _player;
     private Player _opponent;
+    private PlayerController _opponentPlayerController;
     private SuperstarAbility _superstarAbility;
     private readonly View _view;
 
@@ -18,11 +21,13 @@ public class PlayerController
     {
         _player = player;
         _opponent = opponent;
+        _opponentPlayerController = new PlayerController(_opponent, _player, view);
         _superstarAbility = _player.SuperstarAbility;
         _view = view;
         StealStartingHand();
     }
 
+    ///  ???????????????
     private void StealStartingHand()
     {
         for (int i = 0; i < _player.Superstar.HandSize; i++)
@@ -31,12 +36,43 @@ public class PlayerController
         }
     }
     
-    private void StartTurn()
+    public void StartTurn()
     {
         _view.SayThatATurnBegins(_player.GetSuperstarName());
         _superstarAbility.ApplyBeforeDrawing(_opponent);
         DrawCardFromArsenal();
-        ActivateSuperstarsAbilities();
+    }
+    
+    public void AskWhatToDo()
+    {
+        bool abilityCanBeUsed= _superstarAbility.CheckIfAbilityCanBeUsed();
+        NextPlay playerActionRequest = abilityCanBeUsed ? _view.AskUserWhatToDoWhenUsingHisAbilityIsPossible() : _view.AskUserWhatToDoWhenHeCannotUseHisAbility();
+        HandleOption(playerActionRequest);
+    }
+    
+    
+    private void HandleOption(NextPlay playerRequest)
+    {
+        switch (playerRequest)
+        {
+            case NextPlay.ShowCards:
+                ShowCardsToUser();
+                break;
+            case NextPlay.PlayCard:
+                PlayCard();
+                break;
+            case NextPlay.UseAbility:
+                _currentPlayerController.ManageIfSuperstarAbilityIsEnabled(false);
+                HandleSuperstarsAbilities();
+                break;
+            case NextPlay.EndTurn:
+                EndTurn();
+                break;
+            case NextPlay.GiveUp:
+                _view.CongratulateWinner(_opponentPlayerController.GetSuperstarName());
+                _gameIsOn = false;
+                break;
+        }
     }
     
     
@@ -56,8 +92,8 @@ public class PlayerController
     
     private bool CheckPinVictory()
     {
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_opponentPlayerController.GetArsenal())) return false;
-        _view.CongratulateWinner(_currentPlayerController.GetSuperstarName());
+        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_opponent.GetArsenal())) return false;
+        _view.CongratulateWinner(_player.GetSuperstarName());
         _gameIsOn = false;
         return true;
     }
@@ -93,7 +129,7 @@ public class PlayerController
     public void DiscardCardToRingArea(int indexSelectedCard)
     {
         Card cardAddedRingArea = _player.Hand.GetSpecificCard(indexSelectedCard);
-        _fortitudeRating += cardAddedRingArea.GetDamage();   
+        _player.FortitudeRating += cardAddedRingArea.GetDamage();   
         _player.Hand.GiveSpecificCardToTopOf(_player.RingArea, indexSelectedCard);
     }
 

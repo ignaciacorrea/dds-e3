@@ -75,15 +75,14 @@ public class PlayerCreator
     }
 
     
-    public SuperstarAbility CreateSuperstarAbility(Player player)
+    private SuperstarAbility CreateSuperstarAbility(Player player)
     {
         return player.GetSuperstarName() switch
         {
-            // "CHRIS JERICHO" => new ChrisJerichoAbility(_view),
-            // "THE UNDERTAKER" => new TheUndertakerAbility(_view),
-            // "STONE COLD STEVE AUSTIN" => new StoneColdSteveAustinAbility(_view),
+            "CHRIS JERICHO" => new ChrisJerichoAbility(_view, player),
+            "THE UNDERTAKER" => new TheUndertakerAbility(_view, player),
+            "STONE COLD STEVE AUSTIN" => new StoneColdSteveAustinAbility(_view, player),
             "THE ROCK" => new TheRockAbility(_view, player),
-            // "HHH" => new HhhAbility(_view),
             "KANE" => new KaneAbility(_view, player),
             "MANKIND" => new MankindAbility(_view, player),
             _ => new SuperstarAbility(),
