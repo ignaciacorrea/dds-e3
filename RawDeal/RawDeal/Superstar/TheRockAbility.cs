@@ -4,18 +4,33 @@ namespace RawDeal;
 
 public class TheRockAbility : SuperstarAbility
 {
-    public TheRockAbility(Player player, Player opponent, View view) : base(player, opponent, view)
+    private readonly View _view;
+    private Player _player;
+    private PlayerController _playerController;
+    
+    public TheRockAbility(View view, Player player)
     {
-        IsNecessaryToAsk = true;
-    }
-
-    public override void Use()
-    {
-        // ...
+        _view = view;
+        _player = player;
     }
     
-    public override bool CheckIfAbilityCanBeUsed()
+    public override void ApplyBeforeDrawing(Player opponent)
     {
-        return _player.GetUsedAbility() == false && !CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetRingside());
+        MakeControllers(opponent);
+        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetRingside()))
+            HandleTheRockAbility();
+    }
+    
+    private void HandleTheRockAbility()
+    {
+        if (!_view.DoesPlayerWantToUseHisAbility(_player.GetSuperstarName())) return;
+        _view.SayThatPlayerIsGoingToUseHisAbility(_player.GetSuperstarName(), _player.GetStringSuperstarAbility());
+        int indexSelectedCard = _view.AskPlayerToSelectCardsToRecover(_player.GetSuperstarName(), 1, FormatUtility.FormatCardsToDisplay(_player.GetRingside()));
+        _playerController.RecoverCardToArsenalFromRingside(indexSelectedCard);
+    }
+
+    protected override void MakeControllers(Player opponent)
+    {
+        _playerController = new PlayerController(_player, opponent, _view);
     }
 }

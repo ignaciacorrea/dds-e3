@@ -4,18 +4,26 @@ namespace RawDeal;
 
 public class KaneAbility : SuperstarAbility
 {
-    public KaneAbility(Player player, Player opponent, View view) : base(player, opponent, view)
+    private readonly View _view;
+    private readonly Player _player;
+    private PlayerController _playerController;
+    
+    public KaneAbility(View view, Player player)
     {
-        IsNecessaryToAsk = false;
-    }
-
-    public override void Use()
-    {
-        // ...
+        _view = view;
+        _player = player;
     }
     
-    public override bool CheckIfAbilityCanBeUsed()
+    public override void ApplyBeforeDrawing(Player opponent)
     {
-        return _player.GetUsedAbility() == false && !CardDeckInfoProvider.CheckIfDeckIsEmpty(_opponent.GetArsenal());
+        _view.SayThatPlayerIsGoingToUseHisAbility(_player.GetSuperstarName(), _player.GetStringSuperstarAbility());
+        _view.SayThatSuperstarWillTakeSomeDamage(opponent.GetSuperstarName(), 1);
+        MakeControllers(opponent);
+        _playerController.MakeDamage(1);
+    }
+    
+    protected override void MakeControllers(Player opponent)
+    {
+        _playerController = new PlayerController(_player, opponent, _view);
     }
 }

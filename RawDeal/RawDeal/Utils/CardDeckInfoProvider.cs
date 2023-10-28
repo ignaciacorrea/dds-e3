@@ -1,6 +1,6 @@
 namespace RawDeal;
 
-public abstract class CardDeckInfoProvider
+public static class CardDeckInfoProvider
 {
     public static int GetDeckLength(List<Card> deck)
     {

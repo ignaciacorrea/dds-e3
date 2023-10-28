@@ -2,13 +2,13 @@ namespace RawDeal;
 
 public class DeckValidator
 {
-    private readonly List<Card> _playerDeck;
+    private readonly IEnumerable<Card> _playerDeck;
     private readonly Superstar _playerSuperstar;
     private readonly List<Superstar> _listOfSuperstars;
     private const int DeckLength = 60;
     private const int MaxNonSetupCards = 3;
 
-    public DeckValidator(List<Card> playerDeck, Superstar playerSuperstar, List<Superstar> listOfSuperstars)
+    public DeckValidator(IEnumerable<Card> playerDeck, Superstar playerSuperstar, List<Superstar> listOfSuperstars)
     {
         _playerDeck = playerDeck;
         _playerSuperstar = playerSuperstar;
@@ -26,7 +26,7 @@ public class DeckValidator
 
     private bool CheckDeckLength()
     {
-        return _playerDeck.Count == DeckLength;
+        return _playerDeck.Count() == DeckLength;
     }
     
     private bool CheckDeckMaxThreeNonSetupCards()
