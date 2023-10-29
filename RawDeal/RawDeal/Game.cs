@@ -26,6 +26,7 @@ public class Game
     {
         try
         {
+            SetUpGame();
             PlayGame();
         }
         catch (InvalidDeckException ex)
@@ -35,10 +36,18 @@ public class Game
     }
 
 
-    private void PlayGame()
+    private void SetUpGame()
     {
         CreatePlayers();
+        CreatePlayersControllers();
         SetCurrentPlayerBasedOnTheSuperstarValue();
+    }
+
+
+    private void PlayGame()
+    {
+        _currentPlayerController.StealStartingHand();
+        _opponentPlayerController.StealStartingHand();
         _currentPlayerController.StartTurn();
         LoopGame();
     }
@@ -49,8 +58,14 @@ public class Game
         PlayerCreator playerCreator = new PlayerCreator(_view, _deckFolder);
         _currentPlayer = playerCreator.SetUpPlayer();
         _opponentPlayer = playerCreator.SetUpPlayer();
+    }
+
+
+    private void CreatePlayersControllers()
+    {
         _currentPlayerController = new PlayerController(_currentPlayer, _opponentPlayer, _view);
         _opponentPlayerController = new PlayerController(_opponentPlayer, _currentPlayer, _view);
+
     }
 
 
@@ -68,7 +83,7 @@ public class Game
         while(_gameIsOn)
         {
             ShowGameInfo();
-            _currentPlayerController.AskWhatToDo();
+            HandleAction();
         }
     }
     
@@ -83,25 +98,22 @@ public class Game
     
     private static PlayerInfo GetPlayerInfo(Player player)
     {
-        return new PlayerInfo(player.GetSuperstarName(), player.GetFortitudeRating(),
-            CardDeckInfoProvider.GetDeckLength(player.GetHand()),
-            CardDeckInfoProvider.GetDeckLength(player.GetArsenal()));
+        return new PlayerInfo(player.GetSuperstarName(), player.GetFortitudeRating(), player.Hand.GetLength(), player.Arsenal.GetLength());
     }
 
 
-    private void EndTurn()
+    
+    private void HandleAction()
     {
-        if(CheckCountOutVictory()) return;
-        SwapPlayers();
-        if(CheckCountOutVictory()) return;
-        StartTurn();
+        ActionController actionController = new ActionController(_currentPlayerController, _opponentPlayerController);
+        actionController.Execute();
     }
     
-
+    
     private bool CheckCountOutVictory()
     {
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_currentPlayerController.GetArsenal())) return false;
-        _view.CongratulateWinner(_opponentPlayerController.GetSuperstarName());
+        if (!_currentPlayer.Arsenal.CheckIfIsEmpty()) return false;
+        _view.CongratulateWinner(_opponentPlayer.GetSuperstarName());
         _gameIsOn = false;
         return true;
     }
@@ -113,77 +125,5 @@ public class Game
         _currentPlayerController = _opponentPlayerController;
         _opponentPlayerController = temporaryPlayerController;
     }
-
-
-    private void ShowCardsToUser()
-    {
-        // var showCardController = _currentPlayer.BuildShowCardController();
-        // showCardController.Execute();
-        
-        CardSet deckUserWantsToSee = _view.AskUserWhatSetOfCardsHeWantsToSee();
-        List<Card> cardsToDisplay = GetCardsForDeck(deckUserWantsToSee);
-        _view.ShowCards(FormatUtility.FormatCardsToDisplay(cardsToDisplay));
-    }
     
-    // TODO: Move show card to another class
-    private List<Card> GetCardsForDeck(CardSet cardset) =>
-        cardset switch
-        {
-            CardSet.Hand => _currentPlayerController.GetHand(),
-            CardSet.RingArea => _currentPlayerController.GetRingArea(),
-            CardSet.RingsidePile => _currentPlayerController.GetRingside(),
-            CardSet.OpponentsRingArea => _opponentPlayerController.GetRingArea(),
-            CardSet.OpponentsRingsidePile => _opponentPlayerController.GetRingside(),
-            _ => new List<Card>()
-        };
-
-
-    // clean code!!!!!
-    private void PlayCard()
-    {
-        Dictionary<int, Card> cardsAndTheirIndexInTheHandPlayerCanPlay =
-            _currentPlayerController.GetHand()
-                .Select((card, index) => new { Index = index, Card = card })
-                .Where(item => item.Card.GetFortitude() <= _currentPlayerController.GetFortitudeRating())
-                .ToDictionary(item => item.Index, item => item.Card);
-        List<Card> cardsPlayerCanPlay = cardsAndTheirIndexInTheHandPlayerCanPlay.Values.ToList();
-        List<String> formattedCardsPlayerCanPlay = FormatUtility.FormatCardsPlayerCanPlay(cardsPlayerCanPlay);
-        int id = _view.AskUserToSelectAPlay(formattedCardsPlayerCanPlay);
-        if (id != -1) PlaySelectedCard(cardsAndTheirIndexInTheHandPlayerCanPlay.Keys.ElementAt(id), cardsPlayerCanPlay[id].GetCardInfo(), formattedCardsPlayerCanPlay[id]);
-    }
-
-
-    private void PlaySelectedCard(int indexSelectedCard, CardInfo selectedCardInfo, String formattedSelectedCard)
-    {
-        _view.SayThatPlayerIsTryingToPlayThisCard(_currentPlayerController.GetSuperstarName(), formattedSelectedCard);
-        _view.SayThatPlayerSuccessfullyPlayedACard();
-        int totalDamage = int.Parse(selectedCardInfo.Damage);
-        if (_opponentPlayerController.GetSuperstarName() == "MANKIND") totalDamage -= 1;
-        _view.SayThatSuperstarWillTakeSomeDamage(_opponentPlayerController.GetSuperstarName(), totalDamage);
-        MakeDamage(totalDamage);
-        _currentPlayerController.DiscardCardToRingArea(indexSelectedCard);
-    }
-
-
-    private void MakeDamage(int totalDamage)
-    {
-        for (int currentDamage = 1; currentDamage <= totalDamage; currentDamage++)
-        {
-            if (CheckPinVictory()) break;
-            Card lastCardOfDeck = CardDeckInfoProvider.GetLastCardOfDeck(_opponentPlayerController.GetArsenal());
-            CardInfo infoLastCardOfDeck = lastCardOfDeck.GetCardInfo();
-            string stringLastCardOfDeck = Formatter.CardToString(infoLastCardOfDeck); 
-            _view.ShowCardOverturnByTakingDamage(stringLastCardOfDeck, currentDamage, totalDamage);
-            _opponentPlayerController.ReceiveDamage();
-        }
-    }
-    
-    
-    private bool CheckPinVictory()
-    {
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_opponentPlayerController.GetArsenal())) return false;
-        _view.CongratulateWinner(_currentPlayerController.GetSuperstarName());
-        _gameIsOn = false;
-        return true;
-    }
 }

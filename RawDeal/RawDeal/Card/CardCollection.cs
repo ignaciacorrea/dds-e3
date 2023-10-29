@@ -1,3 +1,5 @@
+using RawDealView.Formatters;
+
 namespace RawDeal;
 
 public class CardCollection
@@ -14,11 +16,9 @@ public class CardCollection
         _cards = new List<Card>(cards);
     }
     
-    public List<Card> GetCards() => _cards;
-    
     public void GiveCardToTopOf(CardCollection destination) => GiveCardTo(GetTopCard(), destination, true);
     
-    private Card GetTopCard() => _cards.Last();
+    public Card GetTopCard() => _cards.Last();
 
     public void GiveSpecificCardToTopOf(CardCollection destination, int indexSelectedCard)
     {
@@ -45,7 +45,33 @@ public class CardCollection
         _cards.Remove(card);
     }
 
-    private void Add(Card card) => _cards.Add(card);
+    public void Add(Card card) => _cards.Add(card);
 
     private void Insert(int index, Card card) => _cards.Insert(index, card);
+    
+    public int GetLength()
+    {
+        return _cards.Count;
+    }
+
+    public bool CheckIfIsEmpty()
+    {
+        return _cards.Count == 0;
+    }
+    
+    public bool CheckIfHasAnAmountOfCards(int amountOfCards)
+    {
+        return _cards.Count >= amountOfCards;
+    }
+
+    public List<string> FormatCardsToDisplay()
+    {
+        List<string> formattedCards = new List<string>();
+        foreach (Card card in _cards)
+        {
+            string cardString = Formatter.CardToString(card.GetCardInfo());
+            formattedCards.Add(cardString);
+        }
+        return formattedCards;
+    }
 }

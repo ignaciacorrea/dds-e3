@@ -24,14 +24,14 @@ public class TheRockAbility : SuperstarAbility
 
     public override bool CheckIfAbilityCanBeUsed()
     {
-        bool isRingsideEmpty = CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetRingside());
+        bool isRingsideEmpty = _player.Ringside.CheckIfIsEmpty();
         bool abilityCanBeUsed = !isRingsideEmpty;
         return abilityCanBeUsed;
     }
     
     private void HandleAbility(Player opponent)
     {
-        List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(_player.GetRingside());
+        List<string> formattedCardsToDisplay = _player.Ringside.FormatCardsToDisplay();
         int indexSelectedCard = _view.AskPlayerToSelectCardsToRecover(_player.GetSuperstarName(), AmountCardsRecover, formattedCardsToDisplay);
         PlayerController playerController = new PlayerController(_player, opponent, _view);
         playerController.RecoverCardToArsenalFromRingside(indexSelectedCard);

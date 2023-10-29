@@ -8,34 +8,21 @@ public class PlayerController
 {
     private Player _player;
     private Player _opponent;
-    private PlayerController _opponentPlayerController;
+    private PlayerController _opponentController;
     private SuperstarAbility _superstarAbility;
+    private ActionController _actionController;
     private readonly View _view;
-
-    // public ShowCardController BuildShowCardController()
-    // {
-    //     return new ShowCardController(_player, _opponent);
-    // }
     
     public PlayerController(Player player, Player opponent, View view)
     {
         _player = player;
         _opponent = opponent;
-        _opponentPlayerController = new PlayerController(_opponent, _player, view);
+        _opponentController = new PlayerController(_opponent, _player, view);
         _superstarAbility = _player.SuperstarAbility;
+        _actionController = new ActionController(this, _opponentController, view);
         _view = view;
-        StealStartingHand();
     }
 
-    ///  ???????????????
-    private void StealStartingHand()
-    {
-        for (int i = 0; i < _player.Superstar.HandSize; i++)
-        {
-            DrawCardFromArsenal();
-        }
-    }
-    
     public void StartTurn()
     {
         _view.SayThatATurnBegins(_player.GetSuperstarName());
@@ -43,36 +30,11 @@ public class PlayerController
         DrawCardFromArsenal();
     }
     
-    public void AskWhatToDo()
+    public NextPlay AskWhatToDo()
     {
         bool abilityCanBeUsed= _superstarAbility.CheckIfAbilityCanBeUsed();
         NextPlay playerActionRequest = abilityCanBeUsed ? _view.AskUserWhatToDoWhenUsingHisAbilityIsPossible() : _view.AskUserWhatToDoWhenHeCannotUseHisAbility();
-        HandleOption(playerActionRequest);
-    }
-    
-    
-    private void HandleOption(NextPlay playerRequest)
-    {
-        switch (playerRequest)
-        {
-            case NextPlay.ShowCards:
-                ShowCardsToUser();
-                break;
-            case NextPlay.PlayCard:
-                PlayCard();
-                break;
-            case NextPlay.UseAbility:
-                _currentPlayerController.ManageIfSuperstarAbilityIsEnabled(false);
-                HandleSuperstarsAbilities();
-                break;
-            case NextPlay.EndTurn:
-                EndTurn();
-                break;
-            case NextPlay.GiveUp:
-                _view.CongratulateWinner(_opponentPlayerController.GetSuperstarName());
-                _gameIsOn = false;
-                break;
-        }
+        return playerActionRequest;
     }
     
     
@@ -81,35 +43,36 @@ public class PlayerController
         for (int currentDamage = 1; currentDamage <= totalDamage; currentDamage++)
         {
             if (CheckPinVictory()) break;
-            Card lastCardOfDeck = CardDeckInfoProvider.GetLastCardOfDeck(_opponent.GetArsenal());
+            Card lastCardOfDeck = _opponent.Arsenal.GetTopCard();
             CardInfo infoLastCardOfDeck = lastCardOfDeck.GetCardInfo();
             string stringLastCardOfDeck = Formatter.CardToString(infoLastCardOfDeck); 
             _view.ShowCardOverturnByTakingDamage(stringLastCardOfDeck, currentDamage, totalDamage);
-            _opponentPlayerController.ReceiveDamage();
+            _opponentController.ReceiveDamage();
         }
     }
     
     
     private bool CheckPinVictory()
     {
-        if (!CardDeckInfoProvider.CheckIfDeckIsEmpty(_opponent.GetArsenal())) return false;
+        if (!_opponent.Arsenal.CheckIfIsEmpty()) return false;
         _view.CongratulateWinner(_player.GetSuperstarName());
         _gameIsOn = false;
         return true;
     }
     
     
+    public ShowCardController BuildShowCardController()
+    {
+        return new ShowCardController(_player, _opponent, _view);
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public void StealStartingHand()
+    {
+        for (int i = 0; i < _player.Superstar.HandSize; i++)
+        {
+            DrawCardFromArsenal();
+        }
+    }
     
     public void DrawCardFromArsenal()
     {

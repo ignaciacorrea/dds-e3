@@ -11,6 +11,4 @@ public class CardInfo : IViewableCardInfo
     public string Damage { get; set; }
     public string StunValue { get; set; }
     public string CardEffect { get; set; }
-    
-    public int GetDamageAsInt() => Damage!="#" ? Convert.ToInt32(Damage) : 0;
 }

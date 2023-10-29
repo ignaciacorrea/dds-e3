@@ -29,7 +29,7 @@ public class TheUndertakerAbility : SuperstarAbility
     {
         // solo puede usar la habilidad una vez en su turno
         // if (_playerController.GetSuperstarAbilityUsed()) return false;
-        bool playerHasEnoughCardsInArsenal = CardDeckInfoProvider.CheckIfDeckHasAnAmountOfCards(_player.GetHand(), AmountCardsDiscard);
+        bool playerHasEnoughCardsInArsenal = _player.Hand.CheckIfHasAnAmountOfCards(AmountCardsDiscard);
         return playerHasEnoughCardsInArsenal;
     }
     
@@ -37,7 +37,7 @@ public class TheUndertakerAbility : SuperstarAbility
     {
         for (int numberOfCardToDiscard = AmountCardsDiscard; numberOfCardToDiscard > 0; numberOfCardToDiscard--)
         {
-            List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(_player.GetHand());
+            List<string> formattedCardsToDisplay = _player.Hand.FormatCardsToDisplay();
             int indexSelectedCard = _view.AskPlayerToSelectACardToDiscard(formattedCardsToDisplay, _player.GetSuperstarName(), _player.GetSuperstarName(), numberOfCardToDiscard);
             playerController.DiscardCardToRingside(indexSelectedCard);
         }
@@ -45,7 +45,7 @@ public class TheUndertakerAbility : SuperstarAbility
     
     private void PromptPlayerToRecoverCardFromRingside(PlayerController playerController)
     {
-        List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(_player.GetRingside());
+        List<string> formattedCardsToDisplay = _player.Ringside.FormatCardsToDisplay();
         int indexSelectedCard = _view.AskPlayerToSelectCardsToPutInHisHand(_player.GetSuperstarName(), AmountCardsRecover, formattedCardsToDisplay);
         playerController.RecoverCardToHandFromRingside(indexSelectedCard);
     }

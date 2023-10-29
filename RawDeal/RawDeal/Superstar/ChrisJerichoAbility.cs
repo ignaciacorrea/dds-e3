@@ -26,14 +26,14 @@ public class ChrisJerichoAbility : SuperstarAbility
     {
         // solo puede usar la habilidad una vez en su turno
         // if (_playerController.GetSuperstarAbilityUsed()) return false;
-        bool isHandEmpty = CardDeckInfoProvider.CheckIfDeckIsEmpty(_player.GetHand());
+        bool isHandEmpty = _player.Hand.CheckIfIsEmpty();
         return !isHandEmpty;
     }
     
     private void PromptPlayerToDiscardCardsToRingside(Player player, Player opponent)
     {
         PlayerController playerController = new PlayerController(player, opponent, _view);
-        List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(player.GetHand());
+        List<string> formattedCardsToDisplay = player.Hand.FormatCardsToDisplay();
         int indexSelectedCard = _view.AskPlayerToSelectACardToDiscard(formattedCardsToDisplay, player.GetSuperstarName(), player.GetSuperstarName(), AmountCardsDiscard);
         playerController.DiscardCardToRingside(indexSelectedCard);
     }

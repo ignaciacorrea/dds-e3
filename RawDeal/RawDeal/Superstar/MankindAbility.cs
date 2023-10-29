@@ -24,7 +24,7 @@ public class MankindAbility : SuperstarAbility
     
     public override bool CheckIfAbilityCanBeUsed()
     {
-        bool playerHasEnoughCardsInArsenal =  CardDeckInfoProvider.CheckIfDeckHasAnAmountOfCards(_player.GetArsenal(), AmountCardsNeededInArsenal);
+        bool playerHasEnoughCardsInArsenal = _player.Arsenal.CheckIfHasAnAmountOfCards(AmountCardsNeededInArsenal);
         return playerHasEnoughCardsInArsenal;
     }
 }

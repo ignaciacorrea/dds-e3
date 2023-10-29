@@ -21,9 +21,5 @@ public class Player
     public string GetSuperstarName() {return Superstar.Name;}
     public string GetStringSuperstarAbility() {return Superstar.SuperstarAbility;}
     public int GetSuperstarValue() {return Superstar.SuperstarValue;}
-    public List<Card> GetHand() {return Hand.GetCards();}
-    public List<Card> GetArsenal() {return Arsenal.GetCards();}
-    public List<Card> GetRingside() {return Ringside.GetCards();}
-    public List<Card> GetRingArea() {return RingArea.GetCards();}
     public int GetFortitudeRating() {return FortitudeRating;}
 }

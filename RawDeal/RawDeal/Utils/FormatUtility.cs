@@ -4,22 +4,36 @@ namespace RawDeal;
 
 public abstract class FormatUtility
 {
-    // clean code!!!!! card.GetCardInfo??? y muchos puntos
-    public static List<string> FormatCardsPlayerCanPlay(IEnumerable<Card> cardsUserCanPlay)
+    public static List<string> FormatCardsPlayerCanPlay(List<Card> cards)
     {
-        IEnumerable<PlayInfo> x = cardsUserCanPlay
-            .SelectMany(card => card.GetTypes(),
-                (card, type) => new PlayInfo { CardInfo = card.GetCardInfo(), PlayedAs = type.ToUpper() });
-        return x.Where(playInfo => playInfo.PlayedAs is "MANEUVER" or "ACTION")
-            .Select(Formatter.PlayToString)
-            .ToList();
+        List<string> result = new List<string>();
+        foreach (Card card in cards)
+        {
+            ProcessCard(result, card);
+        }
+        return result;
     }
 
-
-    public static List<string> FormatCardsToDisplay(IEnumerable<Card> cardsToDisplay)
+    
+    private static void ProcessCard(List<string> result, Card card)
     {
-        //TODO: Split train wreck
-        IEnumerable<string> cards = cardsToDisplay.Select(card => Formatter.CardToString(card.GetCardInfo()));
-        return new List<string>(cards);
+        foreach (string type in card.GetTypes())
+        {
+            if (IsPlayableType(type))
+            {
+                PlayInfo playInfo = CreatePlayInfo(card, type);
+                result.Add(Formatter.PlayToString(playInfo));
+            }
+        }
+    }
+    
+    private static bool IsPlayableType(string type)
+    {
+        return type is "MANEUVER" or "ACTION";
+    }
+    
+    private static PlayInfo CreatePlayInfo(Card card, string type)
+    {
+        return new PlayInfo { CardInfo = card.GetCardInfo(), PlayedAs = type.ToUpper() };
     }
 }

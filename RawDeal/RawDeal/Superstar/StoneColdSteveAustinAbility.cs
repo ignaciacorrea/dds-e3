@@ -32,7 +32,7 @@ public class StoneColdSteveAustinAbility : SuperstarAbility
     {
         _view.SayThatPlayerDrawCards(_player.GetSuperstarName(), 1);
         playerController.DrawCardFromArsenal();
-        List<string> formattedCardsToDisplay = FormatUtility.FormatCardsToDisplay(_player.GetHand());
+        List<string> formattedCardsToDisplay = _player.Hand.FormatCardsToDisplay();
         int indexSelectedCard = _view.AskPlayerToReturnOneCardFromHisHandToHisArsenal(_player.GetSuperstarName(), formattedCardsToDisplay);
         playerController.DiscardCardToArsenal(indexSelectedCard);
     }
